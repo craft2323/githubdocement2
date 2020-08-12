@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="81524c14-d569-48c8-9ccf-2efba4292db6" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="getallcategory" doc:id="8cd6915c-0260-409c-8962-06c96b89eaea" >
+		<http:listener doc:name="Listener" doc:id="868500c4-0982-473e-ba84-7535accfcd3f" config-ref="HTTP_Listener_config" path="/category"/>
+		<ee:transform doc:name="Transform Message" doc:id="0d55e2e2-682a-4a46-93b9-6cd6376be7d6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+ 
+    [ {      
+       "categoryid": 40,
+        "name": "FZAB",
+        "description": "NEHAH", 
+         "video_url": "www.APPLE.com",
+         "price": 4417
+             },
+            {
+           "categoryid": 50,
+            "name": "FZGAB",
+           "description": "NEHAHU", 
+           "video_url": "www.DELL.com",
+           "price": 4418
+             },
+             {
+           "categoryid": 80,
+            "name": "FZGABY",
+            "description": "NEHAHUG", 
+            "video_url": "www.WINDOWS.com",
+             "price": 4416
+             }
+              ]
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getorderbyid" doc:id="9aef27d2-963e-4ec3-a345-42f5c574cc6b" >
+		<http:listener doc:name="Listener" doc:id="b2296f92-f6fe-48d9-a471-aec930f4842c" config-ref="HTTP_Listener_config" path="/order/{id]"/>
+		<ee:transform doc:name="Transform Message" doc:id="46d5259d-ffc8-43dc-b8ed-f80994f783a6" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+     "ordername":"mike",
+  "email":"mike@gmail.com"
+  } 	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getallorders" doc:id="fb54181c-b0e6-4e66-8497-102efcfdfa84" >
+		<http:listener doc:name="Listener" doc:id="cc8a0eca-07cc-470d-bef1-7a747e2bb0d9" config-ref="HTTP_Listener_config" path="/orders"/>
+		<ee:transform doc:name="Transform Message" doc:id="ae729d70-5e5f-4413-8694-2453643c6ed2" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+            
+             [
+                {
+                  "productid": 0,
+                  "categoryid": 10,
+                  "name": "FZA",
+                  "description": "NEHA", 
+                  "video_url": "www.craft.com",
+                  "price": 4414
+                }, 
+                {
+                  "productid": 5,
+                  "categoryid": 40,
+                  "name": "FZAB",
+                  "description": "NEHAH", 
+                  "video_url": "www.APPLE.com",
+                  "price": 4417
+                }, 
+                 {
+                  "productid": 6,
+                  "categoryid": 70,
+                  "name": "FZARB",
+                  "description": "NEHAHA", 
+                  "video_url": "www.DELL.com",
+                  "price": 4419
+                } ]
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="postorder" doc:id="3285058f-1946-47ff-a36a-4b38d56f54a4" >
+		<http:listener doc:name="Listener" doc:id="a6e72508-3872-4398-bf32-2efcd7b122bf" config-ref="HTTP_Listener_config" path="postorder"/>
+		<ee:transform doc:name="Transform Message" doc:id="01d9d071-030c-42a3-8f2c-c7605f9c0298" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"uid1":2356
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="getcategorybyid" doc:id="f80337f6-39e0-4c12-a923-d08821ef8a49" >
+		<http:listener doc:name="Listener" doc:id="5492775a-506c-48cd-9e81-3effe5d7e6d4" config-ref="HTTP_Listener_config" path="/category/{id}"/>
+		<ee:transform doc:name="Transform Message" doc:id="ce68f9b8-c8fd-4c31-9453-280ae4daf86d" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+
+
+             {
+               "categoryid": 1,
+                  "productid": 19,
+                  "name": "dell pc",
+                  "description": "core i 5", 
+                  "video_url": "www.dell.com",
+                  "price": 100
+             }	
+]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>
